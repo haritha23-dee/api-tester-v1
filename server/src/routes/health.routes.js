@@ -1,7 +1,7 @@
 //routes: map URL , methods to controller
 
 import { Router } from "express";
-import { getHealth } from "./health.controller";
+import { getHealth } from "../controllers/health.controller.js";
 
 const router = Router();
 
