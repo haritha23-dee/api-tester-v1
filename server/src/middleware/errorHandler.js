@@ -1,12 +1,12 @@
 //middleware error: payloads, duplicates, payload too large
 
 import mongoose from "mongoose";
-import { z } from "zod";
+import { ZodError, z } from "zod";
 import { env } from "../config/env.js";
 import { ApiError } from "../utils/ApiError.js";
 
 export const notFoundHandler = (req, res, next) => {
-    next(new ApiError(404, `Route not found: ${req.method} ${req.originalUrl}`, "NOT FOUND"));
+  next(new ApiError(404, `Route not found: ${req.method} ${req.originalUrl}`, "NOT_FOUND"));
 };
 
 //express recognises error middleware only by 4 arguments

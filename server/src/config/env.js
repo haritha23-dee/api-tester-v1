@@ -21,10 +21,21 @@ const envSchema = z.object({
 
 const parsed = envSchema.safeParse(process.env);
 
-if(!parsed.sucess) {
-    console.error("Invalid environment configuration:");
-    console.error(z.flattenError(parsed.error).fieldErrors);
-    process.exit(1);
+let parsedEnv;
+
+try {
+  parsedEnv = envSchema.parse(process.env);
+} catch (err) {
+  console.error("Invalid environment configuration:");
+  const issues = err?.issues ?? err?.errors;
+  if (Array.isArray(issues)) {
+    for (const issue of issues) {
+      console.error(`  - ${issue.path?.join(".") || "(root)"}: ${issue.message}`);
+    }
+  } else {
+    console.error(err);
+  }
+  process.exit(1);
 }
 
 export const env = Object.freeze(parsed.data);
