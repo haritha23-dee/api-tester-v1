@@ -16,6 +16,6 @@ const sessionSchema = new mongoose.Schema(
 );
 
 //mongodb delete eaxh document automatically once expiresAt has passed
-sessionSchema.index({ expiresAt: 1 }, { expiryAfterSeconds: 0});
+sessionSchema.index({ expiresAt: 1 }, { expireAfterSeconds: 0});
 
 export const Session = mongoose.model("Session", sessionSchema);        //export session schema

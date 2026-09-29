@@ -22,3 +22,6 @@ export const loginSchema = z.strictObject({
   email,
   password: z.string().min(1, "Password is required").max(128),
 });
+
+//refresh token is 48 random bytes in base64url = exactly 64 chars
+export const refreshTokenSchema = z.string().regex(/^[A-Za-z0-9_-]{64}$/);
