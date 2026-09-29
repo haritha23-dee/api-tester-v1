@@ -5,8 +5,8 @@ import bcrypt from "bcryptjs";
 import { env } from "../config/env.js";
 import { ApiError } from "../utils/ApiError.js";
 import { signAccessToken, generateRefreshToken, hashToken } from "../utils/tokens.js";
-import * as userRepository from "../repositories/user.repository.js";
-import * as sessionRepository from "../repositories/session.repository.js";
+import * as userRepository from "../repos/user.repo.js";
+import * as sessionRepository from "../repos/session.repo.js";
 
 //compare against when mail doesn't exist, wrong password take same time 
 let dummyHashPromise;

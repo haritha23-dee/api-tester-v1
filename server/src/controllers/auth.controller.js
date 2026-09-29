@@ -2,7 +2,7 @@
 
 import { registerSchema, loginSchema } from "../validators/auth.validator.js";
 import * as authService from "../services/auth.service.js";
-import { setRefreshCookie } from "../utils/tokens";
+import { setRefreshCookie } from "../utils/cookies.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 function getRequestMeta(req) {

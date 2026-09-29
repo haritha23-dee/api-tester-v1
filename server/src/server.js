@@ -27,7 +27,7 @@ async function shutdown(signal) {
             await new Promise((resolve, reject) => server.close((e) => (e ? reject(e): resolve())));
         }
         await disconnectDB();
-        process.exit(1);
+        process.exit(0);
     } catch (err) {
         console.error("Shutdown error:", err.message);
         process.exit(1);

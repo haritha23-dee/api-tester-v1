@@ -1,16 +1,28 @@
-//verify the access token via slow hasing (fastapi-jwt encode)
+import crypto from "node:crypto";
+import jwt from "jsonwebtoken";
+import { env } from "../config/env.js";
 
-import {env} from "../config/env.js";
+const ISSUER = "api-testing-tool";
 
-export const REFRESH_COOKIE_NAME = "refreshToken";
+export function signAccessToken(userId) {
+  return jwt.sign({ sub: String(userId) }, env.JWT_ACCESS_SECRET, {
+    algorithm: "HS256",
+    expiresIn: env.ACCESS_TOKEN_TTL,
+    issuer: ISSUER,
+  });
+}
 
-//set the refresh token cookie
-export function setRefreshCookie(res, token){
-    res.cookie(REFRESH_COOKIE_NAME, token, {
-        httpOnly: true,     //frontend js can't read the cookie, strict http only
-        secure: env.NODE_ENV === "production",
-        sameSite: "strict",
-        path: "/api/v1/auth",   //exact path for auth endpoints
-        maxAge: env.REFRESH_TOKEN_TTL_DAYS * 24 * 60 * 60 * 1000, 
-    });
+export function verifyAccessToken(token) {
+  return jwt.verify(token, env.JWT_ACCESS_SECRET, {
+    algorithms: ["HS256"],
+    issuer: ISSUER,
+  });
+}
+
+export function generateRefreshToken() {
+  return crypto.randomBytes(48).toString("base64url");
+}
+
+export function hashToken(token) {
+  return crypto.createHash("sha256").update(token).digest("hex");
 }
