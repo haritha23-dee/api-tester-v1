@@ -53,7 +53,6 @@ export const refresh = asyncHandler(async (req, res) => {
     if (err instanceof ApiError && err.statusCode === 401) clearRefreshCookie(res);
     throw err;
   }
-
   setRefreshCookie(res, result.refreshToken);
   res.set("Cache-Control", "no-store");
   res.status(200).json({

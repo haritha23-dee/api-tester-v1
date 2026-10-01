@@ -2,6 +2,7 @@
 
 import express from "express";
 import cors from "cors";
+import morgan from 'morgan';
 import helmet from "helmet";
 import cookieParser from "cookie-parser";     //cookie parser, reads the cookie header
 import { env } from "./config/env.js";
