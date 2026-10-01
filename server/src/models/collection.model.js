@@ -3,6 +3,7 @@
 
 import mongoose from "mongoose";
 
+//each document belongs to one user (owner)
 const collectionSchema = new mongoose.Schema(
     {
         owner: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true },
@@ -12,8 +13,10 @@ const collectionSchema = new mongoose.Schema(
     { timestamps: true }
 );
 
+//one user can have many collections, but it should be unique name case insensitive
 collectionSchema.index(
-    { owner: 1, collation: {locale:"en", strength: 2} }
+    { owner: 1, name: 1},
+    { unique: true, collation: {locale:"en", strength: 2} }
 );
 
 export const Collection = mongoose.model("Collection", collectionSchema);
